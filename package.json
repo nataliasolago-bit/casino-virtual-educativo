@@ -1,0 +1,17 @@
+{
+  "name": "casino-virtual-educativo",
+  "version": "1.0.0",
+  "description": "API REST educativa para la gestion de juegos, jugadores, partidas y puntuaciones. Proyecto academico - Ingenieria Web II - Sesiones 1 y 2.",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": ["nodejs", "express", "api-rest", "openapi", "educativo"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
