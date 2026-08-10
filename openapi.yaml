@@ -1,0 +1,545 @@
+openapi: 3.0.3
+info:
+  title: Casino Virtual Educativo API
+  description: >
+    API REST educativa para la gestion de juegos, jugadores ficticios,
+    partidas y puntuaciones. Proyecto academico de Ingenieria Web II
+    (Sesiones 1 y 2). No incluye dinero real, apuestas, depositos ni
+    retiros: es una simulacion con fines exclusivamente educativos.
+  version: 1.0.0
+  contact:
+    name: Grupo de trabajo
+    email: placeholder@umb.edu.co
+
+servers:
+  - url: http://localhost:3000/api
+    description: Servidor local de desarrollo
+
+tags:
+  - name: Hello
+    description: Endpoint de verificacion del servidor
+  - name: Games
+    description: Catalogo de juegos educativos
+  - name: Players
+    description: Jugadores ficticios registrados
+  - name: Matches
+    description: Partidas realizadas
+  - name: Scores
+    description: Puntuaciones de los jugadores
+
+paths:
+  /hello:
+    get:
+      tags: [Hello]
+      summary: Verifica que el servidor esta funcionando
+      operationId: getHello
+      responses:
+        '200':
+          description: El servidor responde correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Hello API - Casino Virtual Educativo funcionando
+
+  /games:
+    get:
+      tags: [Games]
+      summary: Lista todos los juegos disponibles
+      operationId: getAllGames
+      responses:
+        '200':
+          description: Lista de juegos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Game'
+    post:
+      tags: [Games]
+      summary: Crea un nuevo juego
+      operationId: createGame
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GameInput'
+      responses:
+        '201':
+          description: Juego creado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Game'
+        '400':
+          description: Faltan campos obligatorios
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /games/{id}:
+    get:
+      tags: [Games]
+      summary: Obtiene un juego por id
+      operationId: getGameById
+      parameters:
+        - $ref: '#/components/parameters/GameId'
+      responses:
+        '200':
+          description: Juego encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Game'
+        '404':
+          description: Juego no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      tags: [Games]
+      summary: Reemplaza completamente un juego existente
+      operationId: updateGame
+      parameters:
+        - $ref: '#/components/parameters/GameId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GameInput'
+      responses:
+        '200':
+          description: Juego actualizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Game'
+        '400':
+          description: Faltan campos obligatorios
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Juego no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      tags: [Games]
+      summary: Elimina un juego
+      operationId: deleteGame
+      parameters:
+        - $ref: '#/components/parameters/GameId'
+      responses:
+        '204':
+          description: Juego eliminado exitosamente, sin contenido en la respuesta
+        '404':
+          description: Juego no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /players:
+    get:
+      tags: [Players]
+      summary: Lista todos los jugadores ficticios
+      operationId: getAllPlayers
+      responses:
+        '200':
+          description: Lista de jugadores
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Player'
+    post:
+      tags: [Players]
+      summary: Registra un nuevo jugador ficticio
+      operationId: createPlayer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlayerInput'
+      responses:
+        '201':
+          description: Jugador creado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Player'
+        '400':
+          description: Faltan campos obligatorios
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /players/{id}:
+    get:
+      tags: [Players]
+      summary: Obtiene un jugador por id
+      operationId: getPlayerById
+      parameters:
+        - $ref: '#/components/parameters/PlayerId'
+      responses:
+        '200':
+          description: Jugador encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Player'
+        '404':
+          description: Jugador no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    patch:
+      tags: [Players]
+      summary: Actualiza parcialmente un jugador
+      operationId: updatePlayerPartial
+      parameters:
+        - $ref: '#/components/parameters/PlayerId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                level:
+                  type: integer
+              example:
+                level: 4
+      responses:
+        '200':
+          description: Jugador actualizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Player'
+        '404':
+          description: Jugador no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      tags: [Players]
+      summary: Elimina un jugador
+      operationId: deletePlayer
+      parameters:
+        - $ref: '#/components/parameters/PlayerId'
+      responses:
+        '204':
+          description: Jugador eliminado exitosamente, sin contenido en la respuesta
+        '404':
+          description: Jugador no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /matches:
+    get:
+      tags: [Matches]
+      summary: Lista todas las partidas realizadas
+      operationId: getAllMatches
+      responses:
+        '200':
+          description: Lista de partidas
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Match'
+    post:
+      tags: [Matches]
+      summary: Registra una nueva partida
+      operationId: createMatch
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MatchInput'
+      responses:
+        '201':
+          description: Partida registrada exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Match'
+        '400':
+          description: Faltan campos obligatorios
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /matches/{id}:
+    get:
+      tags: [Matches]
+      summary: Obtiene una partida por id
+      operationId: getMatchById
+      parameters:
+        - $ref: '#/components/parameters/MatchId'
+      responses:
+        '200':
+          description: Partida encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Match'
+        '404':
+          description: Partida no encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      tags: [Matches]
+      summary: Elimina el registro de una partida
+      operationId: deleteMatch
+      parameters:
+        - $ref: '#/components/parameters/MatchId'
+      responses:
+        '204':
+          description: Partida eliminada exitosamente, sin contenido en la respuesta
+        '404':
+          description: Partida no encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /scores:
+    get:
+      tags: [Scores]
+      summary: Lista todas las puntuaciones registradas
+      operationId: getAllScores
+      responses:
+        '200':
+          description: Lista de puntuaciones
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Score'
+    post:
+      tags: [Scores]
+      summary: Registra una nueva puntuacion
+      operationId: createScore
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScoreInput'
+      responses:
+        '201':
+          description: Puntuacion registrada exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Score'
+        '400':
+          description: Faltan campos obligatorios
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /scores/{playerId}:
+    get:
+      tags: [Scores]
+      summary: Obtiene la puntuacion de un jugador especifico
+      operationId: getScoreByPlayerId
+      parameters:
+        - name: playerId
+          in: path
+          required: true
+          description: Id del jugador cuya puntuacion se desea consultar
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Puntuacion encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Score'
+        '404':
+          description: No existe puntuacion registrada para ese jugador
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  parameters:
+    GameId:
+      name: id
+      in: path
+      required: true
+      description: Id del juego
+      schema:
+        type: integer
+    PlayerId:
+      name: id
+      in: path
+      required: true
+      description: Id del jugador
+      schema:
+        type: integer
+    MatchId:
+      name: id
+      in: path
+      required: true
+      description: Id de la partida
+      schema:
+        type: integer
+
+  schemas:
+    Game:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: Ruleta de Probabilidad
+        description:
+          type: string
+          example: Juego educativo sobre probabilidad basica
+        difficulty:
+          type: string
+          enum: [easy, medium, hard]
+          example: easy
+
+    GameInput:
+      type: object
+      required: [name, description, difficulty]
+      properties:
+        name:
+          type: string
+          example: Poker Educativo
+        description:
+          type: string
+          example: Practica de probabilidades y toma de decisiones
+        difficulty:
+          type: string
+          enum: [easy, medium, hard]
+          example: hard
+
+    Player:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        username:
+          type: string
+          example: jugador_ana
+        level:
+          type: integer
+          example: 3
+
+    PlayerInput:
+      type: object
+      required: [username, level]
+      properties:
+        username:
+          type: string
+          example: jugador_camilo
+        level:
+          type: integer
+          example: 1
+
+    Match:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        gameId:
+          type: integer
+          example: 1
+        playerId:
+          type: integer
+          example: 1
+        result:
+          type: string
+          enum: [win, lose, draw]
+          example: win
+
+    MatchInput:
+      type: object
+      required: [gameId, playerId, result]
+      properties:
+        gameId:
+          type: integer
+          example: 1
+        playerId:
+          type: integer
+          example: 1
+        result:
+          type: string
+          enum: [win, lose, draw]
+          example: win
+
+    Score:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        playerId:
+          type: integer
+          example: 1
+        matchId:
+          type: integer
+          example: 1
+        points:
+          type: integer
+          example: 100
+
+    ScoreInput:
+      type: object
+      required: [playerId, matchId, points]
+      properties:
+        playerId:
+          type: integer
+          example: 1
+        matchId:
+          type: integer
+          example: 1
+        points:
+          type: integer
+          example: 100
+
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Recurso no encontrado
