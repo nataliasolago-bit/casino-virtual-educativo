@@ -1,4 +1,4 @@
-# 🎰 Casino Virtual Educativo
+#  Casino Virtual Educativo
 
 Proyecto semestral — **Ingeniería Web II**, Unidad Didáctica 1 (Sesiones 1 y 2)
 Universidad Manuela Beltrán (UMB) — Periodo 2026-262
@@ -7,21 +7,21 @@ API REST para la gestión de un casino virtual educativo: **juegos, jugadores, p
 
 ---
 
-## 👥 Integrantes del grupo
+##  Integrantes del grupo
 
 | Nombre completo | Código |
 |---|---|
-| [Nombre completo integrante 1] | [Código] |
-| [Nombre completo integrante 2] | [Código] |
-| [Nombre completo integrante 3] | [Código] |
+| [Natalia Sofia Larrañaga Gomez] | [1123434594] |
+| [Jairo Andres Barrios Clavijo] | [1123435470] |
+
 
 ---
 
-## 🧱 Arquitectura
+##  Arquitectura
 
 Arquitectura **cliente-servidor**: el backend (este repositorio) expone una API REST que procesa la lógica de negocio y responde en formato JSON. Implementado con **Node.js 22** y **Express**, aprovechando su modelo de E/S no bloqueante (bucle de eventos) para atender múltiples solicitudes simultáneas sin bloquear el hilo principal.
 
-## 📦 Recursos de la API
+##  Recursos de la API
 
 | Recurso | Descripción |
 |---|---|
@@ -32,7 +32,7 @@ Arquitectura **cliente-servidor**: el backend (este repositorio) expone una API 
 
 Cada recurso expone operaciones CRUD completas (`GET`, `POST`, `PUT`, `DELETE`), documentadas formalmente en [`openapi.yaml`](./openapi.yaml).
 
-## 📁 Estructura del proyecto
+##  Estructura del proyecto
 
 ```
 casino-virtual-educativo/
@@ -51,7 +51,7 @@ casino-virtual-educativo/
 └── server.js              # Punto de entrada, arranca el servidor
 ```
 
-## 🚀 Instalación y ejecución local
+##  Instalación y ejecución local
 
 **Requisitos:** Node.js 22.x, npm, Git.
 
