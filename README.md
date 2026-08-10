@@ -11,8 +11,8 @@ API REST para la gestión de un casino virtual educativo: **juegos, jugadores, p
 
 | Nombre completo | Código |
 |---|---|
-| [Natalia Sofia Larrañaga Gomez] | [1123434594] |
-| [Jairo Andres Barrios Clavijo] | [1123435470] |
+| Natalia Sofia Larrañaga Gomez | 1123434594 |
+| Jairo Andres Barrios Clavijo | 1123435470 |
 
 
 ---
@@ -57,7 +57,7 @@ casino-virtual-educativo/
 
 ```bash
 # 1. Clonar el repositorio
-git clone <URL_DEL_REPOSITORIO>
+git clone https://github.com/nataliasolago-bit/casino-virtual-educativo.git
 cd casino-virtual-educativo
 
 # 2. Instalar dependencias
@@ -87,11 +87,11 @@ Respuesta esperada:
 { "message": "Hello API - Casino Virtual Educativo" }
 ```
 
-## 🧩 Middleware de logging
+##  Middleware de logging
 
 El proyecto incluye un middleware de logging (`src/middleware/logger.js`) que registra en consola el método HTTP, la ruta solicitada y el timestamp de cada request entrante. Fue generado y explicado con apoyo de **GitHub Copilot Chat**, siguiendo un proceso de revisión crítica del código sugerido (ver evaluación de Copilot en el informe de la actividad).
 
-## 📄 Documentación de la API (OpenAPI 3.0)
+##  Documentación de la API (OpenAPI 3.0)
 
 El contrato completo de la API está definido en [`openapi.yaml`](./openapi.yaml), con mínimo 5 endpoints CRUD sobre los 4 recursos. Puede validarse y visualizarse en [Swagger Editor](https://editor.swagger.io/) pegando el contenido del archivo.
 
@@ -105,22 +105,6 @@ Verbos HTTP utilizados según su función:
 | `DELETE` | Eliminar un recurso |
 
 Códigos de estado: `2xx` éxito, `4xx` error del cliente, `5xx` error del servidor.
-
-## 🤖 Uso de GitHub Copilot
-
-Se usó GitHub Copilot (licencia Education Pack) como asistente de codificación durante la configuración del esqueleto y el diseño del contrato OpenAPI. Todo el código sugerido fue revisado críticamente antes de aceptarse, en cumplimiento del **ACM Code of Ethics 2023** y las consideraciones éticas de uso responsable de IA generativa de la guía de actividad.
-
-## 📚 Referencias (APA 7)
-
-- Brown, E. (2023). *Web Development with Node and Express* (3.ª ed.), Cap. 1. O'Reilly.
-- Fielding, R., & Reschke, J. (2022). *HTTP Semantics*, RFC 9110, secciones 1-3. IETF. https://www.rfc-editor.org/rfc/rfc9110
-- Traversy Media. (2024). *Node.js Crash Course* [Video]. YouTube. https://youtu.be/fBNz5xF-Kx4
-- freeCodeCamp. (2024). *REST API Design Best Practices* [Video]. YouTube. https://youtu.be/fFEgSU2IWH0
-
-## 🎥 Video de trabajo autónomo
-
-Enlace al video (1-3 min, en inglés), publicado en el foro del LMS institucional: [enlace pendiente]
-
 ---
 
 *Proyecto académico — Ingeniería Web II, UMB, 2026-262.*
