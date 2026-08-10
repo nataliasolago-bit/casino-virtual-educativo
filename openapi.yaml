@@ -8,8 +8,8 @@ info:
     retiros: es una simulacion con fines exclusivamente educativos.
   version: 1.0.0
   contact:
-    name: Grupo de trabajo
-    email: placeholder@umb.edu.co
+    name: Grupo de trabajo de Jairo y Natalia
+    email: Natalialarranga.sg@academia.umb.edu.co
 
 servers:
   - url: http://localhost:3000/api
